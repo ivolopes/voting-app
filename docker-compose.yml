@@ -1,0 +1,21 @@
+version: "3.3"
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  mongodb:
+    image: mongo
+    container_name: votacao-db
+    ports:
+      - '27017-27019:27017-27019'
+    environment:
+      - MONGO_INITDB_DATABASE=votacao-service-db
+      - MONGO_INITDB_ROOT_USERNAME=ivo
+      - MONGO_INITDB_ROOT_PASSWORD=123456
+    volumes:
+      - dbdata6:/data/db
+volumes:
+  dbdata6:
