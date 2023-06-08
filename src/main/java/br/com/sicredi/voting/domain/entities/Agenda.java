@@ -1,5 +1,6 @@
 package br.com.sicredi.voting.domain.entities;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -9,6 +10,7 @@ import java.util.UUID;
 
 @Document
 @Getter
+@EqualsAndHashCode
 public class Agenda {
     @Id
     private String id;

@@ -4,5 +4,5 @@ spring:
       uri: mongodb://ivo:123456@localhost:27017/voting_agenda_db?authSource=admin
 app:
   cpf-validation: ${CPF_VALIDATION:true}
-  agenda-time: ${AGENDA_TIME:1}
+  session-finishing-time: ${SESSION_FINISHING_TIME:1}
 

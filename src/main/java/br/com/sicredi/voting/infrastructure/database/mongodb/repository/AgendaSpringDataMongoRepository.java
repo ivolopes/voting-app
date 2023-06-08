@@ -8,8 +8,6 @@ import reactor.core.publisher.Mono;
 
 @Repository
 public interface AgendaSpringDataMongoRepository extends ReactiveMongoRepository<Agenda, String> {
-    Mono<Agenda> findById(String s);
     Flux<Agenda> findByName(String name);
-
     Mono<Boolean> existsByName(String name);
 }

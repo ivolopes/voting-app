@@ -5,6 +5,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface AgendaRepository {
+    Mono<Boolean> existsById(String id);
     Flux<Agenda> findByName(String name);
     Mono<Agenda> save(Agenda agenda);
 

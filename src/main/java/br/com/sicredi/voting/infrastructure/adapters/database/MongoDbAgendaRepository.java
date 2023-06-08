@@ -14,6 +14,10 @@ public class MongoDbAgendaRepository implements AgendaRepository {
 
     private final AgendaSpringDataMongoRepository repository;
 
+    public Mono<Boolean> existsById(String id) {
+        return repository.existsById(id);
+    }
+
     public Flux<Agenda> findByName(String name) {
         return repository.findByName(name);
     }
