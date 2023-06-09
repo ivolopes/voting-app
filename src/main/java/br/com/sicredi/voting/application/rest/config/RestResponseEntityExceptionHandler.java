@@ -2,6 +2,7 @@ package br.com.sicredi.voting.application.rest.config;
 
 import br.com.sicredi.voting.application.rest.dtos.ErrorResponse;
 import br.com.sicredi.voting.domain.exceptions.AlreadyExistsException;
+import br.com.sicredi.voting.domain.exceptions.InvalidEntityException;
 import br.com.sicredi.voting.domain.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,15 @@ public class RestResponseEntityExceptionHandler
         ErrorResponse response = new ErrorResponse(ex.getMessage());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+
+    @ExceptionHandler(value
+            = { InvalidEntityException.class})
+    protected ResponseEntity<ErrorResponse> handleBadRequest(
+            RuntimeException ex) {
+        ErrorResponse response = new ErrorResponse(ex.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
 }

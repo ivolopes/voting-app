@@ -1,12 +1,11 @@
-package br.com.sicredi.voting.domain.services;
+package br.com.sicredi.voting.domain.domainServices;
 
-import br.com.sicredi.voting.domain.dto.response.AgendaResponse;
-import br.com.sicredi.voting.domain.dto.response.SessionResponse;
+import br.com.sicredi.voting.domain.dto.response.EntityCreatedResponse;
 import br.com.sicredi.voting.domain.entities.Agenda;
 import br.com.sicredi.voting.domain.entities.Session;
 import br.com.sicredi.voting.domain.exceptions.AlreadyExistsException;
 import br.com.sicredi.voting.domain.exceptions.NotFoundException;
-import br.com.sicredi.voting.domain.inputs.AgendaService;
+import br.com.sicredi.voting.domain.services.AgendaService;
 import br.com.sicredi.voting.domain.repository.AgendaRepository;
 import br.com.sicredi.voting.domain.repository.SessionRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +24,7 @@ public class AgendaDomainService implements AgendaService {
     @Value("${app.session-finishing-time}")
     private Integer sessionFinishingTime;
 
-    public Mono<AgendaResponse> save(String name) {
+    public Mono<EntityCreatedResponse> save(String name) {
         log.info("Starting to save a voting agenda with name [{}]", name);
 
         Agenda agenda = new Agenda(name);
@@ -39,17 +38,21 @@ public class AgendaDomainService implements AgendaService {
             } else {
                 Mono<Agenda> savedAgenda = repository.save(agenda);
                 log.info("Voting agenda with name [{}] saved successfully ", name);
-                return savedAgenda.map(sa -> new AgendaResponse(sa.getId()));
+                return savedAgenda.map(sa -> new EntityCreatedResponse(sa.getId()));
             }
         });
 
     }
 
-    public Mono<SessionResponse> createSession(String agendaId) {
+    public Mono<EntityCreatedResponse> createSession(String agendaId, String name) {
+        log.info("Creating session for agenda [{}]", agendaId);
         return repository.existsById(agendaId).flatMap(exists -> {
             if (exists) {
-                Session session = new Session(agendaId, sessionFinishingTime);
-                return sessionRepository.save(session).map(s -> new SessionResponse(s.getId()));
+                Session session = new Session(agendaId, name, this.sessionFinishingTime);
+                return sessionRepository.save(session).map(s -> {
+                    log.info("Session for agenda [{}] created sucessfully", agendaId);
+                    return new EntityCreatedResponse(s.getId());
+                });
             } else {
                 log.error("This voting agenda with id [{}] does not exists", agendaId);
                 return Mono.error(new NotFoundException("Voting agenda"));
