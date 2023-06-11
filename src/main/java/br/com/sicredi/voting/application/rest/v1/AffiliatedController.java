@@ -1,6 +1,6 @@
 package br.com.sicredi.voting.application.rest.v1;
 
-import br.com.sicredi.voting.application.rest.dtos.AffiliatedRequest;
+import br.com.sicredi.voting.domain.dto.request.AffiliatedRequest;
 import br.com.sicredi.voting.domain.dto.response.EntityCreatedResponse;
 import br.com.sicredi.voting.domain.services.AffiliatedService;
 import lombok.RequiredArgsConstructor;

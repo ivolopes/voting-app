@@ -1,7 +1,7 @@
 package br.com.sicredi.voting.application.rest.v1;
 
-import br.com.sicredi.voting.application.rest.dtos.AgendaRequest;
-import br.com.sicredi.voting.application.rest.dtos.SessionRequest;
+import br.com.sicredi.voting.domain.dto.request.AgendaRequest;
+import br.com.sicredi.voting.domain.dto.request.SessionRequest;
 import br.com.sicredi.voting.domain.dto.response.EntityCreatedResponse;
 import br.com.sicredi.voting.domain.services.AgendaService;
 import lombok.RequiredArgsConstructor;

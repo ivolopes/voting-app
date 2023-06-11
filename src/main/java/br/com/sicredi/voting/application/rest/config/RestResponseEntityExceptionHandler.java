@@ -1,11 +1,13 @@
 package br.com.sicredi.voting.application.rest.config;
 
-import br.com.sicredi.voting.application.rest.dtos.ErrorResponse;
+import br.com.sicredi.voting.domain.dto.request.ErrorResponse;
 import br.com.sicredi.voting.domain.exceptions.AlreadyExistsException;
 import br.com.sicredi.voting.domain.exceptions.InvalidEntityException;
 import br.com.sicredi.voting.domain.exceptions.NotFoundException;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.reactive.result.method.annotation.ResponseEntityExceptionHandler;
@@ -39,6 +41,20 @@ public class RestResponseEntityExceptionHandler
         ErrorResponse response = new ErrorResponse(ex.getMessage());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
+
+    @ExceptionHandler(value
+            = { MethodArgumentNotValidException.class})
+    protected ResponseEntity<ErrorResponse> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
+        String message = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                .reduce("\n", String::concat);
+
+        ErrorResponse response = new ErrorResponse(message);
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
 }

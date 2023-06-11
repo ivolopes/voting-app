@@ -1,4 +1,4 @@
-package br.com.sicredi.voting.infrastructure.adapters.database;
+package br.com.sicredi.voting.infrastructure.adapters;
 
 import br.com.sicredi.voting.domain.entities.Agenda;
 import br.com.sicredi.voting.domain.repository.AgendaRepository;
@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 
 @Component
 @RequiredArgsConstructor
-public class MongoDbAgendaRepository implements AgendaRepository {
+public class AgendaRepositoryAdapter implements AgendaRepository {
 
     private final AgendaSpringDataMongoRepository repository;
 

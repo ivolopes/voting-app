@@ -1,16 +1,15 @@
-package br.com.sicredi.voting.infrastructure.adapters.database;
+package br.com.sicredi.voting.infrastructure.adapters;
 
 import br.com.sicredi.voting.domain.entities.Affiliated;
 import br.com.sicredi.voting.domain.repository.AffiliatedRepository;
 import br.com.sicredi.voting.infrastructure.database.mongodb.repository.AffiliatedSpringDataMongoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Component
 @RequiredArgsConstructor
-public class MongoDbAffiliatedRepository implements AffiliatedRepository {
+public class AffiliatedRepositoryAdapter implements AffiliatedRepository {
 
     private final AffiliatedSpringDataMongoRepository repository;
 

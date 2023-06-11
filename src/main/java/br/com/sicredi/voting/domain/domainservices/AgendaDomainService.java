@@ -1,4 +1,4 @@
-package br.com.sicredi.voting.domain.domainServices;
+package br.com.sicredi.voting.domain.domainservices;
 
 import br.com.sicredi.voting.domain.dto.response.EntityCreatedResponse;
 import br.com.sicredi.voting.domain.entities.Agenda;
@@ -12,7 +12,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -42,6 +45,10 @@ public class AgendaDomainService implements AgendaService {
             }
         });
 
+    }
+
+    public Flux<Session> findByAccountedAndFinishingTime(boolean accounted, LocalDateTime date){
+        return sessionRepository.findAllByAccountedAndFinishingTime(accounted, date);
     }
 
     public Mono<EntityCreatedResponse> createSession(String agendaId, String name) {

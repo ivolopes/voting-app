@@ -1,4 +1,4 @@
-package br.com.sicredi.voting.application.rest.dtos;
+package br.com.sicredi.voting.domain.dto.request;
 
 import lombok.Data;
 

@@ -3,6 +3,9 @@ spring:
     mongodb:
       uri: mongodb://ivo:123456@localhost:27017/voting_agenda_db?authSource=admin
 app:
-  cpf-validation: ${CPF_VALIDATION:true}
+  cpf-validation: ${CPF_VALIDATION:false}
   session-finishing-time: ${SESSION_FINISHING_TIME:1}
+  rest:
+    cpf-validation: ${CPF_VALIDATION_API_URL:https://user-info.herokuapp.com/users/}
+
 

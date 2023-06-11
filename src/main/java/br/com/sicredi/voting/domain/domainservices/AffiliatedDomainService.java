@@ -1,4 +1,4 @@
-package br.com.sicredi.voting.domain.domainServices;
+package br.com.sicredi.voting.domain.domainservices;
 
 import br.com.sicredi.voting.domain.dto.response.EntityCreatedResponse;
 import br.com.sicredi.voting.domain.entities.Affiliated;
