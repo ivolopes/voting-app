@@ -29,11 +29,15 @@ public class AffiliatedDomainService implements AffiliatedService {
                 log.error("This affiliated with cpf [{}] already exists", cpf);
                 return Mono.error(new AlreadyExistsException("affiliated with cpf " + cpf + ""));
             } else {
-                return repository.save(affiliated).map(s -> {
-                    log.info("Affiliated with cpf [{}] created successfully", cpf);
-                    return new EntityCreatedResponse(s.getId());
-                });
+                return createAffiliated(affiliated);
             }
+        });
+    }
+
+    private Mono<EntityCreatedResponse> createAffiliated(Affiliated affiliated) {
+        return repository.save(affiliated).map(s -> {
+            log.info("Affiliated with cpf [{}] created successfully", affiliated.getCpf());
+            return new EntityCreatedResponse(s.getId());
         });
     }
 }

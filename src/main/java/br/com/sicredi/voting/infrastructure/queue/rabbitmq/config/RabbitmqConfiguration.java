@@ -8,6 +8,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 
+/**
+ * Class used to configure the queues in RabbitMQ
+ */
 @Configuration
 public class RabbitmqConfiguration {
 
@@ -24,7 +27,7 @@ public class RabbitmqConfiguration {
     @Bean
     Queue votingNotificationQueue() {
         return QueueBuilder.durable(RabbitmqConstants.VOTING_QUEUE).withArgument("x-dead-letter-exchange", "")
-                .withArgument("x-dead-letter-routing-key", RabbitmqConstants.VOTING_QUEUE_DLQ)
+                .withArgument("x-dead-letter-routing-key", votingNotificationQueueDlq())
                 .build();
     }
 

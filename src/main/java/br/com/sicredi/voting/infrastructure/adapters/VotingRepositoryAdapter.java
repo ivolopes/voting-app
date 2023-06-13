@@ -18,24 +18,24 @@ public class VotingRepositoryAdapter implements VotingRepository {
     private final VotingPublisher publisher;
     private final VoteSpringDataMongoRepository repository;
     private final CpfValidationApiClient cpfValidationApiClient;
-    public void register(String sessionId, String affiliatedId, boolean vote) {
-        publisher.publish(sessionId, affiliatedId, vote);
+    public void register(String agendaId, String affiliatedId, boolean vote) {
+        publisher.registerVote(agendaId, affiliatedId, vote);
     }
 
     public Mono<Vote> save(Vote vote) {
         return repository.save(vote);
     }
 
-    public Flux<Vote> findAllBySessionAndAffiliated(String sessionId, String affiliatedId) {
-        return repository.findAllBySessionAndAffiliated(sessionId, affiliatedId);
+    public Flux<Vote> findAllByAgendaAndAffiliated(String agendaId, String affiliatedId) {
+        return repository.findAllByAgendaAndAffiliated(agendaId, affiliatedId);
     }
 
     public boolean validateCpf(String cpf) {
         return cpfValidationApiClient.validateCpf(cpf);
     }
 
-    public Mono<Long> countBySessionAndVote(String sessionId, boolean vote) {
-        return repository.countBySessionAndVote(sessionId, vote);
+    public Mono<Long> countByAgendaAndVote(String agendaId, boolean vote) {
+        return repository.countByAgendaAndVote(agendaId, vote);
     }
     public void sendResult(VotingResultResponse result) {
         publisher.sendResult(result);

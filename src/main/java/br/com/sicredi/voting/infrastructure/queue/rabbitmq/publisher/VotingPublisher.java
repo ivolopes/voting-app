@@ -13,12 +13,22 @@ public class VotingPublisher {
 
     private final AmqpTemplate amqpTemplate;
 
-    public void publish(String sessionId, String affiliatedId, boolean vote) {
+    /**
+     * Responsible for saving votes in the queue
+     * @param agendaId
+     * @param affiliatedId
+     * @param vote
+     */
+    public void registerVote(String agendaId, String affiliatedId, boolean vote) {
         amqpTemplate.convertAndSend(RabbitmqConstants.VOTING_EXCHANGE,
                 RabbitmqConstants.VOTING_ROUTING_KEY,
-                new VotingRequest(sessionId, affiliatedId, vote));
+                new VotingRequest(agendaId, affiliatedId, vote));
     }
 
+    /**
+     * It sends the result to the queue
+     * @param result
+     */
     public void sendResult(VotingResultResponse result) {
         amqpTemplate.convertAndSend(RabbitmqConstants.RESULT_EXCHANGE, "", result);
     }

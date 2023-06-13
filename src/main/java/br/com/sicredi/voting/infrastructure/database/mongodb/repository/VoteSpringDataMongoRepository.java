@@ -8,6 +8,6 @@ import reactor.core.publisher.Mono;
 
 @Repository
 public interface VoteSpringDataMongoRepository extends ReactiveMongoRepository<Vote, String> {
-    Flux<Vote> findAllBySessionAndAffiliated(String sessionId, String affiliatedId);
-    Mono<Long> countBySessionAndVote(String sessionId, boolean vote);
+    Flux<Vote> findAllByAgendaAndAffiliated(String agendaId, String affiliatedId);
+    Mono<Long> countByAgendaAndVote(String agendaId, boolean vote);
 }

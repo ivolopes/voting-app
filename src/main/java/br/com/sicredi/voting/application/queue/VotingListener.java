@@ -21,8 +21,8 @@ public class VotingListener {
     private final VotingService service;
     @RabbitListener(queues = RabbitmqConstants.VOTING_QUEUE)
     public void receiveVoting(VotingRequest message) {
-        log.info("Start saving vote for affiliated [{}] and session [{}]",
-                message.getAffiliatedId(), message.getSessionId());
-        service.save(message.getSessionId(), message.getAffiliatedId(), message.isVote()).block();
+        log.info("Start saving vote for affiliated [{}] and agenda [{}]",
+                message.getAffiliatedId(), message.getAgendaId());
+        service.save(message.getAgendaId(), message.getAffiliatedId(), message.isVote()).block();
     }
 }

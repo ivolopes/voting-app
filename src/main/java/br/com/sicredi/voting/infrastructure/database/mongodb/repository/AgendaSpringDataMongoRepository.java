@@ -6,8 +6,11 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDateTime;
+
 @Repository
 public interface AgendaSpringDataMongoRepository extends ReactiveMongoRepository<Agenda, String> {
     Flux<Agenda> findByName(String name);
     Mono<Boolean> existsByName(String name);
+    Flux<Agenda> findAllByAccountedAndFinishingTimeBefore(boolean accounted, LocalDateTime date);
 }

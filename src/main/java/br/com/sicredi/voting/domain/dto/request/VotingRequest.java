@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class VotingRequest {
-    @NotBlank(message = "The session ID is required")
-    private String sessionId;
+    @NotBlank(message = "The agenda ID is required")
+    private String agendaId;
     @NotBlank(message = "The affiliated ID is required")
     private String affiliatedId;
     private boolean vote;

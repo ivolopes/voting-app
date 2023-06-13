@@ -18,6 +18,6 @@ public class VotingController {
 
     @PostMapping
     public Mono<Void> save(@RequestBody @Valid VotingRequest request) {
-        return service.register(request.getSessionId(), request.getAffiliatedId(), request.isVote());
+        return service.register(request.getAgendaId(), request.getAffiliatedId(), request.isVote());
     }
 }

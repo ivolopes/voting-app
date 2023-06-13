@@ -32,7 +32,7 @@ public class CpfValidationApiClient {
 
     public boolean validateCpf(String cpf) {
 
-        if (cpfValidationFlag) {
+            if (cpfValidationFlag) {
             if (cpf == null || "".equals(cpf.trim())) {
                 return false;
             }

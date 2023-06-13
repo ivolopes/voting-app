@@ -14,15 +14,15 @@ import java.util.UUID;
 public class Vote {
     @Id
     private String id;
-    private String session;
+    private String agenda;
     private String affiliated;
     private Boolean vote;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Vote(String session, String affiliated, boolean vote) {
+    public Vote(String agenda, String affiliated, boolean vote) {
         this.id = UUID.randomUUID().toString();
-        this.session = session;
+        this.agenda = agenda;
         this.affiliated = affiliated;
         this.vote = vote;
         this.createdAt = LocalDateTime.now();

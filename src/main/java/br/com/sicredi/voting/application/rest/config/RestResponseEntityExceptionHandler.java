@@ -5,12 +5,17 @@ import br.com.sicredi.voting.domain.exceptions.AlreadyExistsException;
 import br.com.sicredi.voting.domain.exceptions.InvalidEntityException;
 import br.com.sicredi.voting.domain.exceptions.NotFoundException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.support.WebExchangeBindException;
 import org.springframework.web.reactive.result.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Mono;
 
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler
@@ -43,18 +48,17 @@ public class RestResponseEntityExceptionHandler
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
-    @ExceptionHandler(value
-            = { MethodArgumentNotValidException.class})
-    protected ResponseEntity<ErrorResponse> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
+    @Override
+    protected Mono<ResponseEntity<Object>> handleWebExchangeBindException(WebExchangeBindException ex, HttpHeaders headers, HttpStatusCode status, ServerWebExchange exchange) {
         String message = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                .reduce("\n", String::concat);
+                .reduce(" ", String::concat);
 
         ErrorResponse response = new ErrorResponse(message);
 
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        return Mono.just(new ResponseEntity<>(response, HttpStatus.BAD_REQUEST));
     }
 
 }

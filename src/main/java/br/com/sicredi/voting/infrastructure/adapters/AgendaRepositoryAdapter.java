@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDateTime;
+
 @Component
 @RequiredArgsConstructor
 public class AgendaRepositoryAdapter implements AgendaRepository {
@@ -24,6 +26,16 @@ public class AgendaRepositoryAdapter implements AgendaRepository {
 
     public Mono<Agenda> save(Agenda agenda) {
         return repository.save(agenda);
+    }
+
+    @Override
+    public Mono<Agenda> findById(String id) {
+        return repository.findById(id);
+    }
+
+    @Override
+    public Flux<Agenda> findAllByAccountedAndFinishingTime(boolean accounted, LocalDateTime date) {
+        return repository.findAllByAccountedAndFinishingTimeBefore(accounted, date);
     }
 
     @Override
