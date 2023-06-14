@@ -20,6 +20,11 @@ Organização do código:
         - domain: Toda a lógica de negócio do projeto está nessa classe
         - infrastructure: Integrações para a busca de dados.
     
+Decisões:
+
+    No momento da votação, pensando em performance, ao chamar o endpoint, estou salvado primeiro o voto
+    na fila ao invés de salvar no banco diretamente. Com essa decisão, o tempo de resposta foi para a metade.
     
+    Ao utilizar o webflux ao invés do web mvc, também tem um ganho em performance também.
     
 
