@@ -26,5 +26,11 @@ Decisões:
     na fila ao invés de salvar no banco diretamente. Com essa decisão, o tempo de resposta foi para a metade.
     
     Ao utilizar o webflux ao invés do web mvc, também tem um ganho em performance também.
+
+    Foi criado um job que roda a cada um minuto para enviar o resultado da pauta para a fila. 
+    O resultado é enviado com no mínimo dois minutos após o termino da sessão, pra evitar que tenha votos na
+    fila que ainda precisa ser consumida.
+
+    No resultado, estou enviando o total de votos que teve para cada opção. 
     
 

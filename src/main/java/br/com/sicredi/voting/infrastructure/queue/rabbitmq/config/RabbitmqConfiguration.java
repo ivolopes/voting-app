@@ -27,7 +27,7 @@ public class RabbitmqConfiguration {
     @Bean
     Queue votingNotificationQueue() {
         return QueueBuilder.durable(RabbitmqConstants.VOTING_QUEUE).withArgument("x-dead-letter-exchange", "")
-                .withArgument("x-dead-letter-routing-key", votingNotificationQueueDlq())
+                .withArgument("x-dead-letter-routing-key", RabbitmqConstants.VOTING_QUEUE_DLQ)
                 .build();
     }
 

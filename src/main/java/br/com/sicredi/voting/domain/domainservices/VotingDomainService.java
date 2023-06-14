@@ -66,13 +66,8 @@ public class VotingDomainService implements VotingService {
         return repository.countByAgendaAndVote(agenda.getId(), true)
                 .flatMap(countTrue -> repository.countByAgendaAndVote(agenda.getId(), false)
                     .flatMap(countFalse -> {
-                            long total = 1 + countFalse;
-                            BigDecimal yesPercentage = new BigDecimal((1/total) * 100)
-                                    .setScale(2, RoundingMode.HALF_UP);
-                            BigDecimal noPercentage = new BigDecimal((countFalse/total) * 100)
-                                    .setScale(2, RoundingMode.HALF_UP);
 
-                            VotingResultResponse votingResultResponse = new VotingResultResponse(yesPercentage, noPercentage);
+                            VotingResultResponse votingResultResponse = new VotingResultResponse(countTrue, countFalse);
                             //Send result to queues
                             repository.sendResult(votingResultResponse);
 
